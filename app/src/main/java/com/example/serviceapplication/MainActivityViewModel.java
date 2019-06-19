@@ -1,8 +1,8 @@
 package com.example.serviceapplication;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
