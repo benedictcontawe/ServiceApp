@@ -16,7 +16,7 @@ public class CustomService extends Service {
         return mBinder;
     }
 
-    public class LocalService extends Binder{
+    class LocalService extends Binder{
         CustomService getService(){
             return CustomService.this;
         }

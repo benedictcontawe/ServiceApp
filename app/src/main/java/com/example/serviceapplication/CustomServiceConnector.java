@@ -44,6 +44,10 @@ public class CustomServiceConnector {
         }
     };
 
+    /**
+     * @author {Benedict Contawe}
+     * This class will get the Service Connection
+     */
     public ServiceConnection getServiceConnection() {
         Log.e(CustomServiceConnector.class.getSimpleName(), "getServiceConnection()");
         return serviceConnection;
