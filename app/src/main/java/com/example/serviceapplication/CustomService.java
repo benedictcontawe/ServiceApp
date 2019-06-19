@@ -9,71 +9,21 @@ import android.util.Log;
 
 public class CustomService extends Service {
 
-    private Handler mHandler;
-    private Boolean mIsPaused;
-    private String data;
+    private final IBinder mBinder = new LocalService();
 
-    public CustomService() {
+    @Override
+    public IBinder onBind(Intent intent){
+        return mBinder;
     }
 
-    private final IBinder mBinder = new CustomBinder();
-
-    public class CustomBinder extends Binder {
+    public class LocalService extends Binder{
         CustomService getService(){
             return CustomService.this;
         }
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.e(CustomService.class.getSimpleName(),"onCreate()");
-        mHandler = new Handler();
-        mIsPaused = true;
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        Log.e(CustomService.class.getSimpleName(),"onBind()");
-        return mBinder;
-    }
-
-    public String getData(){
-        return data;
-    }
-
-    public Boolean getIsPaused(){
-        return mIsPaused;
-    }
-
-    public void startTask(){
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if(mIsPaused){
-                    Log.e(CustomService.class.getSimpleName(),"startTask() Removing Callbacks");
-                    mHandler.removeCallbacks(this); // remove callbacks from runnable
-                    pauseTask();
-                }
-                else {
-                    Log.e(CustomService.class.getSimpleName(),"startTask() Run Progress");
-                    //TODO: give data and read Data
-                    data = "Hello";
-                    mHandler.postDelayed(this, 100); // continue incrementing
-                }
-            }
-        };
-        mHandler.postDelayed(runnable, 100);
-    }
-
-    public void pauseTask(){
-        Log.e(CustomService.class.getSimpleName(),"pauseTask()");
-        mIsPaused = true;
-    }
-
-    public void unPauseTask(){
-        Log.e(CustomService.class.getSimpleName(),"unPauseTask()");
-        mIsPaused = false; startTask();
+    public String getFirstMessage(){
+        return  "Service Application";
     }
 
     @Override
@@ -87,6 +37,5 @@ public class CustomService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.e(CustomService.class.getSimpleName(),"onDestroy()");
-        mIsPaused = true;
     }
 }
