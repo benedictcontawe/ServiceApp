@@ -13,7 +13,7 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     private CustomService mService;
-    private MainActivityViewModel mViewModel;
+    private MainViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.e(MainActivity.class.getSimpleName(),"onCreate()");
 
-        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         setObservers();
     }
