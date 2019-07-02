@@ -23,7 +23,7 @@ public class CustomService extends Service {
     }
 
     public String getFirstMessage(){
-        return  "Service Application Activity";
+        return  "Service Application Activity Connected";
     }
 
     @Override
