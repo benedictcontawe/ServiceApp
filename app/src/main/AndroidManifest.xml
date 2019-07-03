@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.serviceapplication">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".CustomIntentService"
-            android:exported="true"></service>
+            android:name=".CustomJobIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

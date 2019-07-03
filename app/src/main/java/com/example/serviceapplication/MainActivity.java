@@ -19,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
         editTextInput = findViewById(R.id.edit_text_input);
     }
 
-    public void startService(View v) {
+    public void enqueueWork(View v) {
         String input = editTextInput.getText().toString();
 
-        Intent serviceIntent = new Intent(this, CustomIntentService.class);
+        Intent serviceIntent = new Intent(this, CustomJobIntentService.class);
         serviceIntent.putExtra("inputExtra", input);
 
-        ContextCompat.startForegroundService(this, serviceIntent);
+        CustomJobIntentService.enqueueWork(this, serviceIntent);
     }
 }
