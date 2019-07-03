@@ -12,6 +12,16 @@ public class CustomService extends Service {
     private final IBinder mBinder = new LocalService();
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public IBinder onBind(Intent intent){
         return mBinder;
     }
