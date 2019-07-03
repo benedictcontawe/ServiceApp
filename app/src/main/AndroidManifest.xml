@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".CustomService"
+            android:name=".CustomIntentService"
             android:exported="true"></service>
 
         <activity android:name=".MainActivity">
