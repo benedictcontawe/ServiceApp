@@ -1,15 +1,17 @@
 package com.example.serviceapplication;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Binder;
-import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
+import static com.example.serviceapplication.App.CHANNEL_ID;
 
 public class CustomService extends Service {
-
-    private final IBinder mBinder = new LocalService();
 
     @Override
     public void onCreate() {
@@ -18,34 +20,35 @@ public class CustomService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
-    }
+        String input = intent.getStringExtra("inputExtra");
 
-    @Override
-    public IBinder onBind(Intent intent){
-        return mBinder;
-    }
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0, notificationIntent, 0);
 
-    public class LocalService extends Binder{
-        CustomService getService(){
-            return CustomService.this;
-        }
-    }
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Example Service")
+                .setContentText(input)
+                .setSmallIcon(R.drawable.ic_android_black)
+                .setContentIntent(pendingIntent)
+                .build();
 
-    public String getFirstMessage(){
-        return  "Service Application Activity Connected";
-    }
+        startForeground(1, notification);
 
-    @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        super.onTaskRemoved(rootIntent);
-        Log.e(CustomService.class.getSimpleName(),"onTaskRemoved()");
-        stopSelf();
+        //do heavy work on a background thread
+        //stopSelf();
+
+        return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(CustomService.class.getSimpleName(),"onDestroy()");
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
