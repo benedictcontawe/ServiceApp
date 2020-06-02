@@ -10,21 +10,39 @@
     tools:context="com.example.serviceapplication.MainActivity">
 
     <EditText
-        android:id="@+id/edit_text_input"
+        android:id="@+id/edit_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Input" />
+        android:hint="Title" />
+
+    <EditText
+        android:id="@+id/edit_text_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Message" />
 
     <Button
+        android:id="@+id/button_start_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="startService"
         android:text="Start Service" />
 
     <Button
+        android:id="@+id/button_stop_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="stopService"
         android:text="Stop Service" />
+
+    <Button
+        android:id="@+id/button_channel_high"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send on Channel High" />
+
+    <Button
+        android:id="@+id/button_channel_low"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send on Channel Low" />
 
 </LinearLayout>
