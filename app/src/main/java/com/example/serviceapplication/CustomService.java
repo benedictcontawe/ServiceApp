@@ -65,19 +65,10 @@ public class CustomService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent,flags, startId);
         Log.e(TAG,"onStartCommand()");
 
-        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID_1)
-                .setCategory(NotificationCompat.CATEGORY_SERVICE)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setGroup(App.GROUP_ID_1)
-                //.setOngoing(true)
-                //.setSmallIcon(R.drawable.ic_android_black)
-                //.setContentTitle("CustomService is running")
-                //.setContentText("Touch for more information or to stop the app")
-                //.setContentIntent(showAppPermissionSettings()) //onContentTapped
-                //.setDeleteIntent(null) //onSwipedAway
-                .build();
+        Notification notification = createNotification1(this);
 
         //notificationManagerCompat.notify(App.CHANNEL_ID1,notification);
         startForeground(App.CHANNEL_ID1,notification);
@@ -90,17 +81,31 @@ public class CustomService extends Service {
         //return START_REDELIVER_INTENT;
     }
 
+    public Notification createNotification1(Context context) {
+        return new NotificationCompat.Builder(context, App.CHANNEL_ID_1)
+                .setOngoing(true)
+                .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                //.setSmallIcon(R.drawable.ic_android_black)
+                //.setContentTitle("CustomService is running")
+                //.setContentText("Touch for more information or to stop the app")
+                //.setContentIntent(showAppPermissionSettings()) //onContentTapped
+                //.setDeleteIntent(null) //onSwipedAway
+                .build();
+    }
+
     public void createNotification2(Context context, String title, String message) {
         Log.e(TAG,"createNotification()");
         if (notificationManagerCompat == null)
             notificationManagerCompat = NotificationManagerCompat.from(context);
 
             Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_ID_2)
+                    .setOngoing(false)
+                    .setAutoCancel(false)
                     //.setCategory(NotificationCompat.CATEGORY_CALL)
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                    //.setGroup(App.CHANNEL_GROUP)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setAutoCancel(false)
                     .setSmallIcon(R.drawable.ic_android_black)
                     .setContentTitle(title)
                     .setContentText(message)
@@ -119,11 +124,36 @@ public class CustomService extends Service {
             notificationManagerCompat = NotificationManagerCompat.from(context);
 
         Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_ID_3)
+                .setOngoing(false)
+                .setAutoCancel(false)
                 //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setDefaults(Notification.DEFAULT_ALL)
-                //.setGroup(App.CHANNEL_GROUP)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                //.setAutoCancel(false)
+                .setSmallIcon(R.drawable.ic_android_black)
+                .setContentTitle(title)
+                .setContentText(message)
+                //.setContentIntent(getPendingIntent(context)) //onContentTapped
+                //.setDeleteIntent(null) //onSwipedAway
+                //.addAction(0, "Reply", null)
+                //.addAction(0, "Call", null)
+                .build();
+
+        notificationManagerCompat.notify(App.CHANNEL_ID3, notification);
+    }
+
+    public void createNotification4(Context context, String title, String message) {
+        Log.e(TAG,"createNotification()");
+        if (notificationManagerCompat == null)
+            notificationManagerCompat = NotificationManagerCompat.from(context);
+
+        Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_ID_3)
+                .setOngoing(false)
+                .setAutoCancel(false)
+                .setGroupSummary(true)
+                .setGroup(App.GROUP_ID_1)
+                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setSmallIcon(R.drawable.ic_android_black)
                 .setContentTitle(title)
                 .setContentText(message)

@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.os.Build;
+import androidx.core.app.NotificationManagerCompat;
 
 public class App extends Application {
 
@@ -55,7 +56,7 @@ public class App extends Application {
             channel3.setDescription("This is Channel 3");
             channel3.setGroup(GROUP_ID_1);
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
+            NotificationManagerCompat manager = NotificationManagerCompat.from(this);
             manager.createNotificationChannelGroup(group1);
             manager.createNotificationChannel(channel1);
             manager.createNotificationChannel(channel2);

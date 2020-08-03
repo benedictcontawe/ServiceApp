@@ -82,4 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateInputs();
         CustomService.getInstance().createNotification3(this,title,message);
     }
+
+    public void sendOnChannelGroup() {
+        updateInputs();
+        CustomService.getInstance().createNotification4(this,title,message);
+    }
 }

@@ -45,4 +45,10 @@
         android:layout_height="wrap_content"
         android:text="Send on Channel Low" />
 
+    <Button
+        android:id="@+id/button_channel_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send on Channel Group" />
+
 </LinearLayout>
