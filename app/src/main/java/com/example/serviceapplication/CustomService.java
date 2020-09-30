@@ -47,7 +47,10 @@ public class CustomService extends Service {
     }
 
     private PendingIntent getPendingIntent(Context context) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, MainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return PendingIntent.getActivity(context,
                 0, notificationIntent, 0);
     }
