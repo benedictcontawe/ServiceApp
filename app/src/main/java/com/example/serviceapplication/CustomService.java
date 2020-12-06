@@ -114,6 +114,8 @@ public class CustomService extends Service {
                     .setContentTitle(title) //Set title of Notification First Row
                     .setContentText(message) //Set Text for Notification Second Row
                     .setSubText(message) //Set title of Notification Third Row
+                    .setOnlyAlertOnce(false)
+                    //.setNotificationSilent()
                     //.setContentIntent(getPendingIntent(context)) //onContentTapped
                     //.setDeleteIntent(null) //onSwipedAway
                     //.addAction(0, "Reply", null)
