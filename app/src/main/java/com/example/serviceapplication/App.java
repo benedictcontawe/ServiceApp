@@ -45,6 +45,8 @@ public class App extends Application {
                     "Channel 2",
                     NotificationManager.IMPORTANCE_HIGH
             );
+            //channel2.setSound(null,null); //For No Sounds
+            //channel2.enableVibration(false); //For No Vibration
             channel2.setDescription("This is Channel 2");
             channel2.setGroup(GROUP_ID_1);
 

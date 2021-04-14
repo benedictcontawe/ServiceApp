@@ -108,13 +108,15 @@ public class CustomService extends Service {
                     .setOngoing(false)
                     .setAutoCancel(false)
                     //.setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setDefaults(NotificationCompat.DEFAULT_SOUND | NotificationCompat.DEFAULT_LIGHTS | NotificationCompat.DEFAULT_VIBRATE)
+                    .setPriority(NotificationCompat.PRIORITY_MAX | NotificationCompat.PRIORITY_HIGH)
                     .setSmallIcon(R.drawable.ic_android_black)
                     .setContentTitle(title) //Set title of Notification First Row
                     .setContentText(message) //Set Text for Notification Second Row
                     .setSubText(message) //Set title of Notification Third Row
                     .setOnlyAlertOnce(false)
+                    //.setSound(null) //For No Sounds
+                    //.setVibrate(new long[]{0L}) //For No Vibration
                     //.setNotificationSilent()
                     //.setContentIntent(getPendingIntent(context)) //onContentTapped
                     //.setDeleteIntent(null) //onSwipedAway
