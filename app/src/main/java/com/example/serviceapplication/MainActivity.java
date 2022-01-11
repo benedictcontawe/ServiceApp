@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         editTextInput = findViewById(R.id.edit_text_input);
     }
 
-    public void startService(View v) {
+    public void startService(View view) {
         String input = editTextInput.getText().toString();
 
         Intent serviceIntent = new Intent(this, CustomService.class);
@@ -29,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 
-    public void stopService(View v) {
+    public void stopService(View view) {
         Intent serviceIntent = new Intent(this, CustomService.class);
+        //serviceIntent.setAction(Constants.SERVICE_STOP);
         stopService(serviceIntent);
     }
 }

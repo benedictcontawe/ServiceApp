@@ -36,19 +36,21 @@ public class CustomService extends Service {
         startForeground(1, notification);
 
         //do heavy work on a background thread
-        //stopSelf();
+        //if (intent.getAction() != null && intent.getAction().equals(Constants.SERVICE_STOP)) {
+        //    stopSelf();
+        //}
 
         return START_NOT_STICKY;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
