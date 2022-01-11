@@ -12,17 +12,17 @@ public class CustomService extends Service {
     private final IBinder mBinder = new LocalService();
 
     @Override
-    public IBinder onBind(Intent intent){
+    public IBinder onBind(Intent intent) {
         return mBinder;
     }
 
-    class LocalService extends Binder{
+    class LocalService extends Binder {
         CustomService getService(){
             return CustomService.this;
         }
     }
 
-    public String getFirstMessage(){
+    public String getFirstMessage() {
         return  "Service Application Now Connected";
     }
 
