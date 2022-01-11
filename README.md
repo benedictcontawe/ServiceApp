@@ -6,4 +6,4 @@
 
 - [How To Implement a Foreground Service in Android](https://betterprogramming.pub/what-is-foreground-service-in-android-3487d9719ab6)
 
-- [How to convert a Drawable to a Bitmap?](https://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap#:~:text=1)%20Drawable%20to,mImageView.setDrawable(mDrawable)%3B)
+- [How to convert a Drawable to a Bitmap?](https://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap)
