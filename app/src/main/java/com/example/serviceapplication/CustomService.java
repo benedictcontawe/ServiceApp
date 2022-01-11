@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.net.Uri;
 import android.provider.Settings;
@@ -42,7 +43,7 @@ public class CustomService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(TAG,"onCreate()");
+        Log.d(TAG,"onCreate()");
         notificationManagerCompat = NotificationManagerCompat.from(this);
     }
 
@@ -70,7 +71,7 @@ public class CustomService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent,flags, startId);
-        Log.e(TAG,"onStartCommand()");
+        Log.d(TAG,"onStartCommand()");
 
         Notification notification = createNotification1(this);
 
@@ -100,7 +101,7 @@ public class CustomService extends Service {
     }
 
     public void createNotification2(Context context, String title, String message) {
-        Log.e(TAG,"createNotification()");
+        Log.d(TAG,"createNotification2");
         if (notificationManagerCompat == null)
             notificationManagerCompat = NotificationManagerCompat.from(context);
 
@@ -128,7 +129,7 @@ public class CustomService extends Service {
     }
 
     public void createNotification3(Context context, String title, String message) {
-        Log.e(TAG,"createNotification()");
+        Log.d(TAG,"createNotification3");
         if (notificationManagerCompat == null)
             notificationManagerCompat = NotificationManagerCompat.from(context);
 
@@ -151,11 +152,11 @@ public class CustomService extends Service {
     }
 
     public void createNotification4(Context context, String title, String message) {
-        Log.e(TAG,"createNotification()");
+        Log.d(TAG,"createNotification4");
         if (notificationManagerCompat == null)
             notificationManagerCompat = NotificationManagerCompat.from(context);
 
-        Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_ID_3)
+        Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_ID_4)
                 .setOngoing(false)
                 .setAutoCancel(false)
                 .setGroupSummary(true)
@@ -172,7 +173,37 @@ public class CustomService extends Service {
                 //.addAction(0, "Call", null)
                 .build();
 
-        notificationManagerCompat.notify(App.CHANNEL_ID3, notification);
+        notificationManagerCompat.notify(App.CHANNEL_ID4, notification);
+    }
+
+    public void createNotification5(Context context, String title, String message) {
+        Log.d(TAG,"createNotification5");
+        if (notificationManagerCompat == null)
+            notificationManagerCompat = NotificationManagerCompat.from(context);
+
+        Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_ID_5)
+                .setOngoing(false)
+                .setAutoCancel(false)
+                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setSmallIcon(R.drawable.ic_android_black)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setStyle(
+                        new NotificationCompat.BigPictureStyle()
+                                .bigPicture(
+                                        BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_android_black)
+                                )
+                                .setBigContentTitle(title)
+                )
+                //.setContentIntent(getPendingIntent(context)) //onContentTapped
+                //.setDeleteIntent(null) //onSwipedAway
+                //.addAction(0, "Reply", null)
+                //.addAction(0, "Call", null)
+                .build();
+
+        notificationManagerCompat.notify(App.CHANNEL_ID5, notification);
     }
 
     @Nullable
@@ -184,6 +215,6 @@ public class CustomService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG,"onDestroy()");
+        Log.d(TAG,"onDestroy()");
     }
 }

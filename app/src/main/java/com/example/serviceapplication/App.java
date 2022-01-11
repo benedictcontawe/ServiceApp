@@ -12,10 +12,14 @@ public class App extends Application {
     public static final int CHANNEL_ID1 = 0x00001;
     public static final int CHANNEL_ID2 = 0x00002;
     public static final int CHANNEL_ID3 = 0x00003;
+    public static final int CHANNEL_ID4 = 0x00004;
+    public static final int CHANNEL_ID5 = 0x00005;
     public static final String GROUP_ID_1 = "CustomServiceGroup1";
     public static final String CHANNEL_ID_1 = "CustomServiceChannel1";
     public static final String CHANNEL_ID_2 = "CustomServiceChannel2";
     public static final String CHANNEL_ID_3 = "CustomServiceChannel3";
+    public static final String CHANNEL_ID_4 = "CustomServiceChannel4";
+    public static final String CHANNEL_ID_5 = "CustomServiceChannel5";
 
     @Override
     public void onCreate() {
