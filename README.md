@@ -7,3 +7,5 @@
 - [How To Implement a Foreground Service in Android](https://betterprogramming.pub/what-is-foreground-service-in-android-3487d9719ab6)
 
 - [How to convert a Drawable to a Bitmap?](https://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap)
+
+- [NotificationCompat.Style](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Style)
