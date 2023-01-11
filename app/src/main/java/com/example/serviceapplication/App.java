@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.os.Build;
 
 public class App extends Application {
+
     public static final String CHANNEL_ID = "CustomServiceChannel";
 
     @Override

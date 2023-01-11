@@ -1,5 +1,7 @@
 package com.example.serviceapplication;
 
+import static com.example.serviceapplication.App.CHANNEL_ID;
+
 import android.app.IntentService;
 import android.app.Notification;
 import android.content.Intent;
@@ -11,16 +13,15 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import static com.example.serviceapplication.App.CHANNEL_ID;
-
 public class CustomIntentService extends IntentService {
 
+    private static final String TAG = CustomIntentService.class.getSimpleName();
     private PowerManager.WakeLock wakeLock; //force the device to stay on
 
-   public CustomIntentService(){
-       super("CustomIntentService");
-       setIntentRedelivery(true);
-   }
+    public CustomIntentService(){
+        super(TAG);
+        setIntentRedelivery(true);
+    }
 
     @Override
     public void onCreate() {
