@@ -23,10 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void startService(View v) {
         String input = editTextInput.getText().toString();
-
         Intent serviceIntent = new Intent(this, CustomIntentService.class);
         serviceIntent.putExtra("inputExtra", input);
-
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 }
