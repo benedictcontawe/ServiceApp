@@ -18,7 +18,7 @@ public class CustomIntentService extends IntentService {
     private static final String TAG = CustomIntentService.class.getSimpleName();
     private PowerManager.WakeLock wakeLock; //force the device to stay on
 
-    public CustomIntentService(){
+    public CustomIntentService() {
         super(TAG);
         setIntentRedelivery(true);
     }
@@ -44,10 +44,13 @@ public class CustomIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        String input = intent.getStringExtra("inputExtra");
+        String input = null;
+        if (intent != null) {
+            input = intent.getStringExtra("inputExtra");
+        }
 
         for (int i = 0; i < 10; i++) {
-            Log.d(CustomIntentService.class.getSimpleName(), input + " - " + i);
+            Log.d(TAG, input + " - " + i);
             SystemClock.sleep(1000);
         }
     }
@@ -55,9 +58,8 @@ public class CustomIntentService extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(CustomIntentService.class.getSimpleName(),"Destroy()");
-
+        Log.d(TAG,"Destroy()");
         wakeLock.release();
-        Log.d(CustomIntentService.class.getSimpleName(),"Wake Lock Released");
+        Log.d(TAG,"Wake Lock Released");
     }
 }
