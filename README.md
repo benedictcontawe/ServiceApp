@@ -1,5 +1,7 @@
 # ServiceApp
 
+- [IntentService This class was deprecated in API level 30.](https://developer.android.com/reference/android/app/IntentService)
+
 - [Android Notification.Builder vs NotificationCompat.Builder [duplicate]](https://stackoverflow.com/questions/39749482/android-notification-builder-vs-notificationcompat-builder)
 
 - [8.1: Notifications](https://google-developer-training.github.io/android-developer-fundamentals-course-concepts-v2/unit-3-working-in-the-background/lesson-8-alarms-and-schedulers/8-1-c-notifications/8-1-c-notifications.html)
@@ -15,3 +17,5 @@
 - [Background Services running forever in Android (Part 2)](https://medium.com/@Lakshya_Punhani/background-services-running-forever-in-android-part-2-6e3a667d36fd)
 
 - [Background Services running forever in Android (Part 3)](https://medium.com/@Lakshya_Punhani/background-services-running-forever-in-android-part-3-e49389214e6e)
+
+- [Services. The life with/without. And WorkManager.](https://medium.com/google-developer-experts/services-the-life-with-without-and-worker-6933111d62a6)
