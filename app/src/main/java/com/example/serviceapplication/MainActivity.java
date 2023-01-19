@@ -1,8 +1,10 @@
 package com.example.serviceapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,5 +28,17 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, CustomIntentService.class);
         serviceIntent.putExtra("inputExtra", input);
         ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    @Nullable
+    @Override
+    public ComponentName startService(Intent service) {
+        return super.startService(service);
+    }
+
+    @Nullable
+    @Override
+    public ComponentName startForegroundService(Intent service) {
+        return super.startForegroundService(service);
     }
 }

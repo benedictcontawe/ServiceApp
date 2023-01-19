@@ -14,12 +14,12 @@
         android:id="@+id/edit_text_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Input" />
+        android:hint="@string/input" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="startService"
-        android:text="Start Service" />
+        android:text="@string/start_service" />
 
 </LinearLayout>
