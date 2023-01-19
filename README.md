@@ -1,5 +1,7 @@
 # ServiceApp
 
+- [Exploring Android 13: Notification Runtime Permission](https://yggr.medium.com/exploring-android-13-notification-runtime-permission-6e198bb5ae3b)
+
 - [IntentService This class was deprecated in API level 30.](https://developer.android.com/reference/android/app/IntentService)
 
 - [Android Notification.Builder vs NotificationCompat.Builder [duplicate]](https://stackoverflow.com/questions/39749482/android-notification-builder-vs-notificationcompat-builder)
