@@ -1,4 +1,4 @@
-package com.example.serviceapplication;
+package com.example.service;
 
 import org.junit.Test;
 

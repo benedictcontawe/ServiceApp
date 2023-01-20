@@ -1,13 +1,14 @@
-package com.example.serviceapplication;
+package com.example.service;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateService(){
+    private void updateService() {
         Log.e(MainActivity.class.getSimpleName(),"updateService()");
         if(mService != null) {
             if (mService.getIsPaused()) {
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void bindService(){
+    private void bindService() {
         Log.e(MainActivity.class.getSimpleName(),"bindService()");
         Intent serviceBindIntent =  new Intent(this, CustomService.class);
         bindService(serviceBindIntent, mViewModel.getServiceConnection(), Context.BIND_AUTO_CREATE);
@@ -112,6 +113,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.e(MainActivity.class.getSimpleName(),"onDestroy()");
-
     }
 }
