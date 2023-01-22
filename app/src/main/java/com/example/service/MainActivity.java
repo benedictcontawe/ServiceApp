@@ -1,117 +1,83 @@
 package com.example.service;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.core.app.NotificationChannelCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    static final private String TAG = MainActivity.class.getSimpleName();
+    private Button showNotificationButton;
     private CustomService mService;
-    private MainViewModel mViewModel;
+    private MainViewModel viewModel;
+    private TextView notificationEnabledText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e(MainActivity.class.getSimpleName(),"onCreate()");
-
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        setObservers();
+        Log.d(TAG,"onCreate()");
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        showNotificationButton = (Button) findViewById (R.id.show_notification_button);
+        notificationEnabledText = (TextView) findViewById (R.id.notification_enabled_text);
+        showNotificationButton.setOnClickListener(this);
     }
 
-    private void setObservers(){
-        mViewModel.getBinder().observe(this, new Observer<CustomService.CustomBinder>() {
-            @Override
-            public void onChanged(@Nullable CustomService.CustomBinder customBinder) {
-                if(customBinder == null){
-                    Log.e(MainActivity.class.getSimpleName(), "onChanged() unbound from service");
-                }
-                else {
-                    Log.e(MainActivity.class.getSimpleName(), "onChanged() bound to service.");
-                    mService = customBinder.getService();
-                    updateService();
-                }
-            }
-        });
-
-        mViewModel.getIsUSBMounted().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                final Handler handler = new Handler();
-                final Runnable runnable = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        if(mViewModel.getIsUSBMounted().getValue()){
-                            if (mViewModel.getBinder().getValue() != null){
-                                // meaning the service is bound
-                                Log.e(MainActivity.class.getSimpleName(),"Data from Service to Activity " + mService.getData());
-                            }
-                            handler.postDelayed(this, 100);
-                        }
-                        else {
-                            handler.removeCallbacks(this);
-                        }
-                    }
-                };
-
-                // control what the button shows
-                if(aBoolean){
-                    Log.e(MainActivity.class.getSimpleName(),"Data from Service to Activity " + mService.getData());
-                    handler.postDelayed(runnable, 100);
-
-                }
-            }
-        });
-    }
-
-    private void updateService() {
-        Log.e(MainActivity.class.getSimpleName(),"updateService()");
-        if(mService != null) {
-            if (mService.getIsPaused()) {
-                mService.unPauseTask();
-                mViewModel.setIsUSBMounted(true);
+    @Override
+    public void onClick(View view) {
+        if (view == showNotificationButton) {
+            if (viewModel.isAndroidTiramisuAndPostNotificationsGranted()) {
+                //showDummyNotification()
             } else {
-                mService.pauseTask();
-                mViewModel.setIsUSBMounted(false);
+                viewModel.launchActivityResultLauncher(requestPermissionLauncher);
             }
         }
     }
 
-    private void bindService() {
-        Log.e(MainActivity.class.getSimpleName(),"bindService()");
-        Intent serviceBindIntent =  new Intent(this, CustomService.class);
-        bindService(serviceBindIntent, mViewModel.getServiceConnection(), Context.BIND_AUTO_CREATE);
-    }
+    ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult (
+        new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+            @Override
+            public void onActivityResult(Boolean value) {
+                Log.d(TAG,"onActivityResult(" + value + ")");
+            }
+        }
+    );
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(MainActivity.class.getSimpleName(),"onResume()");
-        bindService();
+        Log.d(TAG,"onResume()");
+        notificationEnabledText.setText(
+                viewModel.getPostNotificationsGranted()
+        );
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(MainActivity.class.getSimpleName(),"onStop()");
-        mViewModel.setIsUSBMounted(false);
-        if (mViewModel.getBinder() != null){
-            unbindService(mViewModel.getServiceConnection());
-        }
+        Log.d(TAG,"onStop()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(MainActivity.class.getSimpleName(),"onDestroy()");
+        Log.d(TAG,"onDestroy()");
     }
 }

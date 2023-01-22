@@ -1,55 +1,63 @@
 package com.example.service;
 
-import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.os.IBinder;
+import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.Manifest;
+import android.os.Build;
+import android.Manifest;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends AndroidViewModel {
 
-    private MutableLiveData<CustomService.CustomBinder> mBinder = new MutableLiveData<>();
+    static final private String TAG = MainViewModel.class.getSimpleName();
 
+    public MainViewModel(Application application) {
+        super(application);
+        Log.d(TAG,"MainViewModel");
+    }
 
-    // Keeping this in here because it doesn't require a context
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder iBinder) {
-            Log.e(MainViewModel.class.getSimpleName(), "ServiceConnection: connected to service.");
-            // We've bound to CustomService, cast the IBinder and get MyBinder instance
-            CustomService.CustomBinder binder = (CustomService.CustomBinder) iBinder;
-            mBinder.postValue(binder);
+    public Boolean isAndroidTiramisuAndPostNotificationsGranted() {
+        Log.d(TAG,"MainViewModel isAndroidTiramisuAndPostNotificationsGranted");
+        return isAndroidTiramisu() && ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public Boolean isPostNotificationsGranted() {
+        Log.d(TAG,"MainViewModel isPostNotificationsGranted");
+        return ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean isAndroidTiramisu() {
+        Log.d(TAG,"MainViewModel isAndroidTiramisu");
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
+    }
+
+    public void launchActivityResultLauncher(ActivityResultLauncher<String> launcher) {
+        Log.d(TAG,"MainViewModel launchActivityResultLauncher");
+        launcher.launch(Manifest.permission.POST_NOTIFICATIONS);
+        if (isAndroidTiramisu()) {
+            launcher.launch(Manifest.permission.POST_NOTIFICATIONS);
         }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            Log.e(MainViewModel.class.getSimpleName(), "ServiceConnection: disconnected from service.");
-            mBinder.postValue(null);
-        }
-    };
-
-    public ServiceConnection getServiceConnection(){
-        Log.e(MainViewModel.class.getSimpleName(),"getServiceConnection()");
-        return serviceConnection;
     }
 
-    public LiveData<CustomService.CustomBinder> getBinder(){
-        Log.e(MainViewModel.class.getSimpleName(),"getBinder()");
-        return mBinder;
-    }
-
-    private MutableLiveData<Boolean> mIsUSBMounted = new MutableLiveData<>();
-
-    public LiveData<Boolean> getIsUSBMounted(){
-        Log.e(MainViewModel.class.getSimpleName(),"getIsUSBMounted()");
-        return mIsUSBMounted;
-    }
-
-    public void setIsUSBMounted(boolean isUpdating){
-        Log.e(MainViewModel.class.getSimpleName(),"setIsUSBMounted()");
-        mIsUSBMounted.postValue(isUpdating);
+    public String getPostNotificationsGranted() {
+        Log.d(TAG,"MainViewModel getPostNotificationsGranted");
+        if (isAndroidTiramisuAndPostNotificationsGranted())
+            return "Granted!";
+        else return "Denied!";
     }
 }

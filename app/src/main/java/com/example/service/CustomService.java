@@ -9,6 +9,7 @@ import android.util.Log;
 
 public class CustomService extends Service {
 
+    static final private String TAG = CustomService.class.getSimpleName();
     private Handler mHandler;
     private Boolean mIsPaused;
     private String data;
@@ -27,14 +28,14 @@ public class CustomService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(CustomService.class.getSimpleName(),"onCreate()");
+        Log.e(TAG,"onCreate()");
         mHandler = new Handler();
         mIsPaused = true;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.e(CustomService.class.getSimpleName(),"onBind()");
+        Log.e(TAG,"onBind()");
         return mBinder;
     }
 
@@ -51,12 +52,12 @@ public class CustomService extends Service {
             @Override
             public void run() {
                 if(mIsPaused){
-                    Log.e(CustomService.class.getSimpleName(),"startTask() Removing Callbacks");
+                    Log.e(TAG,"startTask() Removing Callbacks");
                     mHandler.removeCallbacks(this); // remove callbacks from runnable
                     pauseTask();
                 }
                 else {
-                    Log.e(CustomService.class.getSimpleName(),"startTask() Run Progress");
+                    Log.e(TAG,"startTask() Run Progress");
                     //TODO: give data and read Data
                     data = "Hello";
                     mHandler.postDelayed(this, 100); // continue incrementing
@@ -67,26 +68,26 @@ public class CustomService extends Service {
     }
 
     public void pauseTask(){
-        Log.e(CustomService.class.getSimpleName(),"pauseTask()");
+        Log.e(TAG,"pauseTask()");
         mIsPaused = true;
     }
 
     public void unPauseTask(){
-        Log.e(CustomService.class.getSimpleName(),"unPauseTask()");
+        Log.e(TAG,"unPauseTask()");
         mIsPaused = false; startTask();
     }
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
-        Log.e(CustomService.class.getSimpleName(),"onTaskRemoved()");
+        Log.e(TAG,"onTaskRemoved()");
         stopSelf();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(CustomService.class.getSimpleName(),"onDestroy()");
+        Log.e(TAG,"onDestroy()");
         mIsPaused = true;
     }
 }
