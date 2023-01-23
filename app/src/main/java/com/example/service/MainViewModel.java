@@ -14,6 +14,7 @@ import android.util.Log;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 
@@ -21,6 +22,7 @@ public class MainViewModel extends AndroidViewModel {
 
     static final private String TAG = MainViewModel.class.getSimpleName();
     static final Integer SETTINGS_PERMISSION_CODE = 1000;
+    static final Integer NOTIFICATION_PERMISSION_CODE = 1010;
 
     public MainViewModel(Application application) {
         super(application);
@@ -62,9 +64,15 @@ public class MainViewModel extends AndroidViewModel {
         return ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
     }
 
+    public void requestPermissionsPostNotifications(Activity activity) {
+        Log.d(TAG,"MainViewModel launchActivityResultLauncher");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            ActivityCompat.requestPermissions(activity, new String[]{ Manifest.permission.POST_NOTIFICATIONS }, NOTIFICATION_PERMISSION_CODE);
+    }
+
     public void launchActivityResultLauncher(ActivityResultLauncher<String> launcher) {
         Log.d(TAG,"MainViewModel launchActivityResultLauncher");
-        if (isAndroidTiramisu())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             launcher.launch(Manifest.permission.POST_NOTIFICATIONS);
     }
 
