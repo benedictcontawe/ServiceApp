@@ -21,3 +21,5 @@
 - [Background Services running forever in Android (Part 3)](https://medium.com/@Lakshya_Punhani/background-services-running-forever-in-android-part-3-e49389214e6e)
 
 - [Services. The life with/without. And WorkManager.](https://medium.com/google-developer-experts/services-the-life-with-without-and-worker-6933111d62a6)
+
+- [Requesting runtime permissions using new ActivityResult API](https://medium.com/@ajinkya.kolkhede1/requesting-runtime-permissions-using-new-activityresult-api-cb6116551f00)
